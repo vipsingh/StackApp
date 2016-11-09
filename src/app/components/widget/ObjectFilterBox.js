@@ -104,7 +104,7 @@ export default class ObjectFilterBox extends React.Component{
               {this.state.filters.map(this.renderChip, this)}
           </div>
           <div style={{width:70}}>
-            <IconButton onTouchTap={this.toogleFilterEditor} iconClassName="fa fa-filter" className='pull-right' />
+            <IconButton onTouchTap={this.toogleFilterEditor} iconClassName={this.state.filterEditorVisible ? "fa fa-search-minus" : "fa fa-search-plus"} className='pull-right' />
           </div>
         </div>
         <div style={{display: filterEditordisplay}}>
@@ -144,7 +144,7 @@ export default class ObjectFilterBox extends React.Component{
                 {
                   function(){
                     if(this.state.current.schema != null){
-                      return (<FieldEditor fieldSchema={this.state.current.schema} value={this.state.current.value} onChange={(value)=>{this.handleChange('value', value);}}/>)
+                      return (<FieldEditor fieldSchema={this.state.current.schema} value={this.state.current.value} onChange={(value)=>{this.handleChange('value', value);}} floatingLabelText={null}/>)
                     }
                     else{
                       return (<div></div>)
