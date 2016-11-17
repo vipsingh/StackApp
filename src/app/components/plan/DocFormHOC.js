@@ -41,7 +41,6 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
     handleSubmit(data){
       var that = this;
       this.props.dispatch(startSubmit(formName));
-      debugger;
       that.props.dispatch(startLoading());
       api_object.saveData(this.props.modelSchema.name, data).then((d)=>{
         Notify.success(`Document[${d.id}] Saved`);
@@ -66,20 +65,20 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
       return (
         <div>
           <div className='row'>
-            <div className='col-sm-12'>
-              <DocToolbar title={this.props.modelSchema.name}
+            <div className='col-xs-12'>
+              <DocToolbar title={this.props.modelSchema.text}
                   saveCommand={this.props.handleSubmit(this.handleSubmit)}/>
             </div>
           </div>
           <div className='row'>
-            <div className='col-sm-12'>
+            <div className='col-xs-12'>
               <Paper zDepth={2} style={style.paper}>
                 <WrappedComponent {...this.props} {...newProps}/>
               </Paper>
             </div>
           </div>
           <div className='row'>
-            <div className='col-sm-12 doc-form-footer'></div>
+            <div className='col-xs-12 doc-form-footer'></div>
           </div>
           <Paper>
               {JSON.stringify(this.props.formValues)}

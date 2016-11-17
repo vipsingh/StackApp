@@ -20,7 +20,7 @@ class DocForm extends Component{
   componentWillMount() {
     var that = this;
     that.props.dispatch(startLoading());
-    api_object.getSchema(this.props.objParam.name).then((sch)=>{
+    api_object.getSchema(this.props.routeParam.name).then((sch)=>{
       that.model_schema = sch;
       that.loadData();
     }).finally(()=>{that.props.dispatch(endLoading());});
@@ -28,7 +28,7 @@ class DocForm extends Component{
 
   loadData(){
     var that = this;
-    return api_object.getModel(this.props.objParam.name, this.props.objParam.id).then((dt)=>{
+    return api_object.getModel(this.props.routeParam.name, this.props.routeParam.id).then((dt)=>{
       that.initialValues = dt;
       that.setState({loaded:true});
     }).finally(()=>{that.props.dispatch(endLoading());});

@@ -21,10 +21,9 @@ class ObjFormWrapper extends Component{
 
   render(){
     if(this.state.loaded){
-      debugger;
       let objParam = {name:this.props.params.name, id:this.props.location.query.id,  query: this.props.location.query}
       return(
-        <DocForm objParam={objParam}></DocForm>
+        <DocForm routeParam={objParam}></DocForm>
       )
     }
     else{

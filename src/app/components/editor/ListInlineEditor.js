@@ -14,7 +14,7 @@ const stylee ={
   headerColIndex:{width:100},
   wrapperStyle:{border:'1px solid rgb(224, 224, 224)'}
 }
-export default class ListEditor_1 extends React.Component {
+export default class ListInlineEditor extends React.Component {
   constructor(props){
     super(props);
     this.tmpCnt = -100000;
@@ -52,7 +52,6 @@ export default class ListEditor_1 extends React.Component {
     let dt = this.state.data.slice(0);
     var arr = dt.map(function(d) {
       if(d.id === id){
-        debugger;
         var d_val ={id:id};
         _.map(this.state.currentValue,(fl)=>{
           if(fl.name)
@@ -67,12 +66,6 @@ export default class ListEditor_1 extends React.Component {
 
   onFieldChange=(val, field)=>{
     let d = Object.assign({},this.state.currentValue);
-    // if(ev && ev.target){
-    //   d[fl_name].value = ev.target.value;
-    // }
-    // else{
-    //   d[fl_name].value = ev;
-    // }
     d[field].value = val;
     this.setState({currentValue: d});
   };

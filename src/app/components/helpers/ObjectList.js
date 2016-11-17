@@ -21,7 +21,7 @@ export const cellFormatter = {
   },
   //link field
   ////////
-  identifier:(props)=>{
+  title:(props)=>{
     return (<a href={"#/object/form/"+props.objectName+"?id="+props.dependentValues.data.id}>{props.value}</a>)
   }
   //ObjectNumber, ObjectStatus

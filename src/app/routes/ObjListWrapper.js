@@ -21,8 +21,9 @@ class ObjListWrapper extends Component{
 
   render(){
     if(this.state.loaded){
+      let objParam = {name:this.props.params.name, query: this.props.location.query}
       return(
-        <ObjectListView objParam={this.props.params.name}></ObjectListView>
+        <ObjectListView routeParam={objParam}></ObjectListView>
       )
     }
     else{

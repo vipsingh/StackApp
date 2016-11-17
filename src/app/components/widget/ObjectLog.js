@@ -1,0 +1,1 @@
+//Object log information

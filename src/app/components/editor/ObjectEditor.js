@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Field } from 'redux-form';
 
 import ListEditor from "./ListEditor";
-import FieldEditor,{renderInputField} from './FieldEditor';
+import FieldEditor,{FormFieldEditor} from './FieldEditor';
 
 class ObjectEditor extends Component{
   constructor(props){
@@ -16,7 +16,7 @@ class ObjectEditor extends Component{
       formValues: this.props.formValues,
       parFieldName:this.par_field_name
     };
-    return (<Field {...customProps}  name={`${this.par_field_name}.${fl.name}`} component={renderInputField} />);
+    return (<FormFieldEditor {...customProps}  name={`${this.par_field_name}.${fl.name}`} />);
   }
 
   create2ColsSchema(schema){
@@ -60,15 +60,15 @@ class ObjectEditor extends Component{
           if(fl.length == 2){
             return (
               <div className='row'>
-                <div className='col-sm-6'>{this.renderField(fl[0])}</div>
-                <div className='col-sm-6'>{this.renderField(fl[1])}</div>
+                <div className='col-sm-6 col-xs-12'>{this.renderField(fl[0])}</div>
+                <div className='col-sm-6  col-xs-12'>{this.renderField(fl[1])}</div>
               </div>
             )
           }
           else if(fl.length == 1){
             return (
               <div className='row'>
-                <div className='col-sm-12'>{this.renderField(fl[0])}</div>
+                <div className='col-xs-12'>{this.renderField(fl[0])}</div>
               </div>
             )
           }

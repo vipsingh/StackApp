@@ -26,8 +26,9 @@ var object_api={
   },
 
   getListData:function(object_name, params) {
+    params = params || {};
     return new Promise((resolve, reject)=>{
-      request.get('/object/'+object_name+'/list').then(function(res) {
+      request.post('/object/'+object_name+'/list', params).then(function(res) {
         resolve(res.data);
       }).catch(function(err) {
         reject(err);

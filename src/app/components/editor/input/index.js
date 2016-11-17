@@ -10,6 +10,16 @@ import Select from 'react-select';
 
 import api_object from '../../../api/object';
 
+const chkStyles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
+};
+
 export class DateFieldEditor extends Component{
   constructor(props){
     super(props);
@@ -49,16 +59,6 @@ export class SelectFieldEditor extends Component{
     )
   }
 }
-
-const chkStyles = {
-  block: {
-    maxWidth: 250,
-  },
-  checkbox: {
-    marginTop: 16,
-    marginBottom: 16,
-  },
-};
 
 export class BoolFieldEditor extends Component{
   constructor(props){
@@ -128,28 +128,28 @@ export class LinkFieldEditor extends Component{
     const fieldSchema = this.props.fieldSchema;
     return(
       <div style={{width:256, height: 72, marginTop: 14}}>
-      <label style={{top: 38, zIndex: 1, cursor: 'text'}}>{this.props.floatingLabelText}</label>
-      <Select {...this.props}
-          isLoading={this.state.isLoading}
-          options={this.state.options}
-          onInputChange={this.handleInputChange}
-          onOpen={this.handleOnOpen}
-          onChange={this.valChange}
-          onBlur={this.onBlur}
-      />
+        <label style={{top: 38, zIndex: 1, cursor: 'text'}}>{this.props.floatingLabelText}</label>
+        <Select {...this.props}
+            isLoading={this.state.isLoading}
+            options={this.state.options}
+            onInputChange={this.handleInputChange}
+            onOpen={this.handleOnOpen}
+            onChange={this.valChange}
+            onBlur={this.onBlur}
+        />
        {this.props.errorText && <span>{this.props.errorText}</span>}
       </div>
     )
   }
 }
 /***Field Editors
-TextBox
+TextBox *
 MultiLineTextBox
-CheckBox
-DatePicker
-ComboBox
+CheckBox *
+DatePicker *
+ComboBox *
 MultiComboBox
-Lookup
+Lookup *
 MultiLookup
 DateRange
 DateTimePicker

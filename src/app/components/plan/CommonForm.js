@@ -6,26 +6,15 @@ import Subheader from 'material-ui/Subheader';
 
 import ListEditor from "../editor/ListEditor";
 import ObjectEditor from "../editor/ObjectEditor";
-import FieldEditor,{renderInputField} from '../editor/FieldEditor'
-import ListFormEditor from '../editor/ListFormEditor';
+import FieldEditor,{FormFieldEditor} from '../editor/FieldEditor';
 
-const renderTabField = ({ input, label, meta: { touched, error }, ...custom }) => {
-  return (
-  <ListFormEditor
-    {...input}
-    {...custom}
-  />
-  )
-}
 
 class CommonForm extends Component{
   constructor(props){
     super(props);
   }
-//<ListEditor {...customProps} ></ListEditor>
   renderField(fl){
     var customProps={
-      formName: this.props.form,
       fieldSchema: fl,
       formValues: this.props.formValues,
       dispatch: this.props.dispatch
@@ -43,7 +32,7 @@ class CommonForm extends Component{
         </div>);
     }
     else{
-      return (<Field name={fl.name} {...customProps} component={renderInputField} />);
+      return (<FormFieldEditor {...customProps} />);
     }
   }
 
@@ -80,7 +69,7 @@ class CommonForm extends Component{
   }
 
   renderForm(schema){
-    var rows = this.create2ColsSchema(schema);
+    var rows = this.create2ColsSchema(schema.fields);
     return(
       <div>
       {
@@ -88,15 +77,15 @@ class CommonForm extends Component{
           if(fl.length == 2){
             return (
               <div className='row'>
-                <div className='col-sm-6'>{this.renderField(fl[0])}</div>
-                <div className='col-sm-6'>{this.renderField(fl[1])}</div>
+                <div className='col-sm-6 col-xs-12'>{this.renderField(fl[0])}</div>
+                <div className='col-sm-6 col-xs-12'>{this.renderField(fl[1])}</div>
               </div>
             )
           }
           else if(fl.length == 1){
             return (
               <div className='row'>
-                <div className='col-sm-12'>{this.renderField(fl[0])}</div>
+                <div className='col-xs-12'>{this.renderField(fl[0])}</div>
               </div>
             )
           }
@@ -110,9 +99,24 @@ class CommonForm extends Component{
     var {modelSchema} = this.props;
     return(
       <div>
-        {this.renderForm(modelSchema.fields)}
+        {this.renderForm(modelSchema)}
       </div>
     )
   }
 }
 export default CommonForm;
+
+//**Object Specific Form
+// export class PartnerForm extends CommonForm{
+//   renderForm(schema){
+//     let fields = schema.fields;
+//     return(
+//       <div>
+//         <div className='row'>
+//           <div className='col-sm-6 col-xs-12'>{this.renderField(fields.name)}</div>
+//           <div className='col-sm-6 col-xs-12'>{this.renderField(fields.active)}</div>
+//         </div>
+//       </div>
+//     )
+//   }
+// }

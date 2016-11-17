@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import _ from 'lodash';
 
-var model_schema_1 = {"name":"Customer", "field_identifier":"name", "fields":{
+var model_schema_1 = {"name":"Customer", "field_title":"name", "fields":{
   "name":{"type":"string","name":"name","text":"Name","read_only":false,"hidden":false,"required":true,"unique":false,"validations":{"required":true}},
   "creditlimit":{"type":"decimal","name":"creditlimit","text":"Credit Limit","read_only":false,"hidden":false,"required":false,"unique":false,"validations":{}},
   "creditlimit1":{"type":"decimal","name":"creditlimit1","text":"Credit Limit1","read_only":false,"hidden":false,"required":false,"unique":false,"validations":{}},
@@ -28,19 +28,13 @@ var model_schema_1 = {"name":"Customer", "field_identifier":"name", "fields":{
           }
         }
       };
-var model_schema_2 = {"name":"Supplier","identifier_field":"name", "fields":{
-        "name":{"type":"string","name":"name","text":"Name","read_only":false,"hidden":false,"required":true,"unique":false,"validations":{"required":true}},
-        "group":{"type":"string","name":"group","text":"Group","read_only":false,"hidden":false,"required":false,"unique":false,"validations":{}},
-        "startOn":{"type":"date","name":"startOn","text":"Start On","read_only":false,"hidden":false,"required":false,"unique":false,"validations":{}}
-              }
-            };
 function getSchema(object_name) {
   return new Promise((resolve, reject)=>{
     setTimeout(function() {
       if(object_name == 'Customer')
         resolve(model_schema_1 );
       else {
-        resolve(model_schema_2 );
+        resolve({} );
       }
     }, 500)
   });

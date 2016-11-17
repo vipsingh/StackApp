@@ -15,6 +15,9 @@ const stylee ={
 }
 
 class ListEditor extends React.Component {
+  static contextTypes = {
+    $formName: React.PropTypes.string
+  };
   constructor(props){
     super(props);
     this.addRow = this.addRow.bind(this);
@@ -33,11 +36,11 @@ class ListEditor extends React.Component {
   };
   handleCommitRow=(val)=>{
     if(this.state.currentMember == '#new'){
-      this.props.dispatch(arrayPush(this.props.formName, this.par_field_name, val));
+      this.props.dispatch(arrayPush(this.context.$formName, this.par_field_name, val));
     }
     else{
       _.each(_.keys(val), (pp)=>{
-          this.props.dispatch(change(this.props.formName, `${this.state.currentMember}.${pp}`, val[pp]));
+          this.props.dispatch(change(this.context.$formName, `${this.state.currentMember}.${pp}`, val[pp]));
       });
     }
     this.setState({open: false});

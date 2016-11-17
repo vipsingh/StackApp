@@ -33,11 +33,12 @@ class ObjectListView extends Component{
     this.rowGetter = this.rowGetter.bind(this);
     this.handleGridSort = this.handleGridSort.bind(this);
     this.currentSortInfo = {field:'', dir:'ASC'};
-    this.filterInfo = null;
+    this.currentSearch = "";
+    this.filterInfo = {};
   }
   loadSchema = ()=>{
     var that= this;
-    return api_object.getSchema(this.props.objParam).then((schema)=>{
+    return api_object.getSchema(this.props.routeParam.name).then((schema)=>{
       that.modelSchema = schema;
       that.buildColumns();
       that.setState({schemaLoaded:true});
@@ -61,8 +62,8 @@ class ObjectListView extends Component{
       }
       if(cellFormatter[fl.type])
         d.formatter = cellFormatter[fl.type];
-      if(this.modelSchema.field_identifier == fl.name){
-        d.formatter = <cellFormatter.identifier objectName={this.modelSchema.name}/>;
+      if(this.modelSchema.field_title == fl.name){
+        d.formatter = <cellFormatter.title objectName={this.modelSchema.name}/>;
       }
       if(fl.type == 'select')
         d.list_values = fl.list_values;
@@ -74,7 +75,11 @@ class ObjectListView extends Component{
   loadData = (index)=>{
     var that = this;
     that.setState({loading: true});
-    api_object.getListData(this.props.objParam,{pageIndex: index, sortinfo:this.currentSortInfo}).then((data)=>{
+    api_object.getListData(this.props.routeParam.name,{
+        pageIndex: index,
+        sortinfo:this.currentSortInfo,
+        search: this.currentSearch,
+        filters: this.filterInfo}).then((data)=>{
       var originalRows = data.data;
       var rows = originalRows.slice(0);
       that.setState({loading: false,
@@ -100,8 +105,14 @@ class ObjectListView extends Component{
     this.loadData(1);
   }
 
-  handleFilterChanged(filterInfo){
+  handleFilterChanged = (filterInfo)=>{
+    this.filterInfo = filterInfo;
+    this.loadData(1);
+  }
 
+  handleOnSearch=(value)=>{
+    this.currentSearch = value;
+    this.loadData(1);
   }
 
   raiseNew = ()=>{
@@ -136,14 +147,14 @@ class ObjectListView extends Component{
       }
       return(
         <div>
-          <DocToolBar title={this.props.objParam}
+          <DocToolBar title={this.modelSchema.text}
           onRefreshCommand={()=>{this.loadData(1)}}
           onNewCommand={this.raiseNew}
           />
           <Paper>
             <div className='row'>
-              <div className='col-sm-12'>
-                <ObjectFilterBox modelSchema={this.modelSchema} />
+              <div className='col-xs-12'>
+                <ObjectFilterBox modelSchema={this.modelSchema} onSearch={this.handleOnSearch} onFilterChanged={this.handleFilterChanged} />
               </div>
             </div>
           </Paper>

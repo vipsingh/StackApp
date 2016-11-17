@@ -28,11 +28,12 @@ export default class ObjectFilterBox extends React.Component{
 
       }
       else{
+        //*info: we can also extend date object to  Month, Year
         that.fields.push(fl);
       }
 
     });
-    this.criteria =[{value:'$eq', text:'Equal'},{value:'$ne', text:'NotEqual'},
+    this.criteria =[{value:'$eq', text:'='},{value:'$ne', text:'!='},
       {value:'$in', text:'In', includeIn:['string','link','select']},
       {value:'$cn', text:'Contains', includeIn:['string']},
       {value:'$sw', text:'StartWith', includeIn:['string']},
@@ -44,7 +45,7 @@ export default class ObjectFilterBox extends React.Component{
     ];
     this.state={
       filters:[],
-      current: {field:'', op:'$eq', value: null, schema: null},
+      current: {field:'', op:'$eq', value: null, schema: null, text:'='},
       filterEditorVisible: false
     };
     this.counter=1;
@@ -65,8 +66,11 @@ export default class ObjectFilterBox extends React.Component{
     curr.id = this.counter++;
     delete curr.schema;
     fls.push(curr);
-    let curr_1 = Object.assign({}, this.state.current,{field:'', op:'$eq', value: null, schema: null});
+    let curr_1 = Object.assign({}, this.state.current,{field:'', op:'$eq', value: null, schema: null, text:'='});
     this.setState({filters: fls, current: curr_1});
+    setTimeout(function() {
+      this.submitFilter();
+    }.bind(this));
   }
   handleRemove=(id)=>{
     let fls = this.state.filters.slice();
@@ -74,6 +78,9 @@ export default class ObjectFilterBox extends React.Component{
     _.each(fls, (d,idx)=>{if(d.id === id){ix = idx;}});
     fls.splice(ix, 1);
     this.setState({filters: fls});
+    setTimeout(function() {
+      this.submitFilter();
+    }.bind(this));
   }
   handleChange=(field, value)=>{
     value = (value.target)?value.target.value: value;
@@ -83,12 +90,25 @@ export default class ObjectFilterBox extends React.Component{
       curr.schema = sch;
       curr.value = null;
       curr.op = '$eq';
+      curr.text = '=';
+    }
+    else if(field == 'op') {
+      curr.text = _.find(this.criteria,{value:value}).text;
     }
     this.setState({current: curr});
   }
+
+  handleSearch = (ev)=>{
+    let s_txt = ev.target.value;
+    this.props.onSearch(s_txt);
+  }
   submitFilter=()=>{
     //{"groupOp":"and","rules":[{"field":"Category","op":"bw","value":"cash"},{"field":"ItemName","op":"cn","value":"kiwi"}]}
-
+    let f_o = {groupOp:"and",rules:[]};
+    _.each(this.state.filters, (f)=>{
+      f_o.rules.push({field: f.field, op: f.op, value: f.value});
+    });
+    this.props.onFilterChanged(f_o);
   };
 
   toogleFilterEditor=()=>{
@@ -102,6 +122,9 @@ export default class ObjectFilterBox extends React.Component{
         <div style={{width:'100%', display:'flex'}}>
           <div style={this.styles.wrapper}>
               {this.state.filters.map(this.renderChip, this)}
+          </div>
+          <div>
+            <TextField name='search_list' onBlur={this.handleSearch} />
           </div>
           <div style={{width:70}}>
             <IconButton onTouchTap={this.toogleFilterEditor} iconClassName={this.state.filterEditorVisible ? "fa fa-search-minus" : "fa fa-search-plus"} className='pull-right' />
@@ -166,7 +189,7 @@ export default class ObjectFilterBox extends React.Component{
         onRequestDelete={() => this.handleRemove(data.id)}
         style={this.styles.chip}
       >
-        {data.field + ' ' + data.op + ' ' + data.value}
+        {data.field + ' ' + data.text + ' ' + data.value}
       </Chip>
     );
   }
