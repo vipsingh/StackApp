@@ -59,6 +59,18 @@ var object_api={
         handleError(err);
       });
     });
+  },
+
+  getSingle:function(object_name, id, params) {
+    params = params || {};
+    return new Promise((resolve, reject)=>{
+      request.get('/object/'+object_name+'/single/'+id, {params:params}).then(function(res) {
+        resolve(res.data);
+      }).catch(function(err) {
+        reject(err);
+        handleError(err);
+      });
+    });
   }
 };
 export default object_api;

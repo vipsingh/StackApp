@@ -40,7 +40,10 @@ class ListEditor extends React.Component {
     }
     else{
       _.each(_.keys(val), (pp)=>{
-          this.props.dispatch(change(this.context.$formName, `${this.state.currentMember}.${pp}`, val[pp]));
+          //if(this.props.beforeFieldChange(`${this.state.currentMember}.${pp}`, val[pp])){
+            this.props.dispatch(change(this.context.$formName, `${this.state.currentMember}.${pp}`, val[pp]));
+            //this.props.afterFieldChange(`${this.state.currentMember}.${pp}`, val[pp]);
+          //}
       });
     }
     this.setState({open: false});

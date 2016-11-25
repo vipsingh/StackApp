@@ -14,9 +14,9 @@ class FieldEditor extends Component{
   onTextFieldChange=(ev, val)=>{
     this.props.onChange(val);
   };
-  // onFieldChange=(val)=>{
-  //   this.props.onChange(val);
-  // };
+  shouldComponentUpdate(nextProps, nextState){
+    return nextProps.value !== this.props.value || nextProps.errorText !== this.props.errorText || nextProps.disabled !== this.props.disabled;
+  }
   render(){
     const fieldSchema = this.props.fieldSchema;
     if(fieldSchema.type == 'decimal' || fieldSchema.type == 'monetary'){
@@ -44,7 +44,7 @@ class FieldEditor extends Component{
 }
 
 //**Object Form Related
-function evalInContext(evalStr, $model, $this) {
+function evalInContext(evalStr, $root, $this) {
     return eval(evalStr);
 }
 export const renderInputField = ({ input, label, meta: { touched, error }, ...custom }) => {
@@ -54,11 +54,21 @@ export const renderInputField = ({ input, label, meta: { touched, error }, ...cu
   let d_disable= custom.fieldSchema.read_only;
   if(custom.fieldSchema.disabled)
     d_disable = evalInContext(custom.fieldSchema.disabled, custom.formValues, (custom.parFieldName)?custom.formValues[custom.parFieldName]:custom.formValues);
+  if(custom.fieldSchema.computed){
+    custom.value = evalInContext(custom.fieldSchema.computed, custom.formValues, (custom.parFieldName)?custom.formValues[custom.parFieldName]:custom.formValues);
+    d_disable = true;
+  }
   return (
   <FieldEditor floatingLabelFixed={true}
     errorText={touched && error}
     disabled ={d_disable}
     {...input}
+    onChange={function(val){
+      if(custom.beforeFieldChange(input.name, val)){
+        input.onChange(val);
+        custom.afterFieldChange(input.name, val);
+      }
+    }.bind(this)}
     {...custom}
   />
   )

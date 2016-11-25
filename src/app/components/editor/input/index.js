@@ -126,6 +126,8 @@ export class LinkFieldEditor extends Component{
   }
   render(){
     const fieldSchema = this.props.fieldSchema;
+    //width: props.fullWidth ? '100%' : 256,
+    //height: (props.rows - 1) * 24 + (props.floatingLabelText ? 72 : 48),
     return(
       <div style={{width:256, height: 72, marginTop: 14}}>
         <label style={{top: 38, zIndex: 1, cursor: 'text'}}>{this.props.floatingLabelText}</label>

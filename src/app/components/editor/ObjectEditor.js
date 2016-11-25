@@ -14,7 +14,9 @@ class ObjectEditor extends Component{
     var customProps={
       fieldSchema: fl,
       formValues: this.props.formValues,
-      parFieldName:this.par_field_name
+      parentFieldName:this.par_field_name,
+      beforeFieldChange: this.props.beforeFieldChange,
+      afterFieldChange: this.props.afterFieldChange
     };
     return (<FormFieldEditor {...customProps}  name={`${this.par_field_name}.${fl.name}`} />);
   }

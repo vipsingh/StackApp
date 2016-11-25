@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ModuleBoard from './plan/ModuleBoard';
 
 class Home extends Component{
 
@@ -10,8 +11,9 @@ class Home extends Component{
       return(
         <div>
         <label>HOME</label>
-        <button onClick={this.handleClick} >sdadasd</button>
+        <button onClick={this.handleClick} >Click Me</button>
         <br/>
+        <ModuleBoard />
         </div>
       )
     }

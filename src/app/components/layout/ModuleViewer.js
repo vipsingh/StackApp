@@ -3,8 +3,10 @@ import Popover from 'material-ui/Popover';
 import RaisedButton from 'material-ui/RaisedButton';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import ModuleIcon from '../widget/ModuleIcon';
 
 const style={
 
@@ -16,11 +18,30 @@ class ModuleViewer extends Component {
     this.state = {
       open: false,
     };
+    this.styles = {
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        width: '100%'
+      },
+    };
+    this.modules= [
+      {name:'core', text:'Core'},
+      {name:'finance', text:'Finance'},
+      {name:'sales', text:'Sales'},
+      {name:'purchase', text:'Purchase'},
+      {name:'inventory', text:'Inventory'}];
   }
+
+  handleModuleClick = (m)=>{
+    alert(m.name);
+    this.handleRequestClose();
+    //this.props.onModuleClick(m.name);
+  }
+
   handleTouchTap = (event) => {
     // This prevents ghost click.
     event.preventDefault();
-
     this.setState({
       open: true,
       anchorEl: event.currentTarget,
@@ -32,6 +53,7 @@ class ModuleViewer extends Component {
       open: false,
     });
   };
+
   render(){
     return(
       <div>
@@ -48,12 +70,23 @@ class ModuleViewer extends Component {
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}
+          style={{width:350}}
         >
-          <Menu>
-            <MenuItem primaryText="Core" leftIcon={<FontIcon className="fa fa-user" color={blue500} />} />
-            <MenuItem primaryText="Sales" leftIcon={<FontIcon className="fa fa-home" />} />
-            <MenuItem primaryText="Setting" leftIcon={<FontIcon className="fa fa-list" color={red500} hoverColor={greenA200} />} />
-          </Menu>
+        <div style={this.styles.wrapper}>
+          {
+            this.modules.map((m)=>{
+              return (<div style={{width:'50%'}}>
+                <FlatButton
+                  label={m.text}
+                  onTouchTap={()=>{this.handleModuleClick(m)}}
+                  icon={<ModuleIcon module={m.name} />}
+                  style={{color:red500}}
+                />
+              </div>)
+            })
+          }
+        </div>
+
         </Popover>
       </div>
     );

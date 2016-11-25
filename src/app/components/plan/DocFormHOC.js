@@ -54,13 +54,8 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
       });
     }
 
-    handleFieldValueSet=(field, val)=>{
-      //this.props.autofill('creditlimit1', Number(val));
-    };
-
     render() {
       const newProps = {
-        setFieldValue: this.handleFieldValueSet,
       }
       return (
         <div>

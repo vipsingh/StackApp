@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import CommonForm from './CommonForm';
+import BaseEntityForm from './BaseEntityForm';
 import DocFormHOC from "./DocFormHOC";
-//import api_object from '../../api/docObject';
 import api_object from '../../api/object';
 import { startLoading, endLoading } from '../../reducers/indicator';
 
@@ -19,6 +18,11 @@ class DocForm extends Component{
   }
   componentWillMount() {
     var that = this;
+    // require.ensure([], function(require) {
+    //   debugger;
+    //   var doc = require("../../../appContent/objects/Partner");
+    // });
+
     that.props.dispatch(startLoading());
     api_object.getSchema(this.props.routeParam.name).then((sch)=>{
       that.model_schema = sch;
@@ -45,7 +49,7 @@ class DocForm extends Component{
 
   loadView(){
     if(this.state.loaded){
-      var CDoc =  DocFormHOC(CommonForm, "form"+this.model_schema.name, {modelSchema: this.model_schema, initialValues: this.initialValues});
+      var CDoc =  DocFormHOC(BaseEntityForm, "form"+this.model_schema.name, {modelSchema: this.model_schema, initialValues: this.initialValues});
       return (
         <div>
           <CDoc onReload={this.handleReload}></CDoc>
