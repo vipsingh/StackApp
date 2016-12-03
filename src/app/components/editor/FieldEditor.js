@@ -20,27 +20,28 @@ class FieldEditor extends Component{
   render(){
     const fieldSchema = this.props.fieldSchema;
     if(fieldSchema.type == 'decimal' || fieldSchema.type == 'monetary'){
-      return(<TextField type='number' floatingLabelText={fieldSchema.text}  {...this.props} onChange={this.onTextFieldChange} />);
+      return(<TextField fullWidth={true} type='number'  {...this.props} onChange={this.onTextFieldChange} />);
     }
     else if(fieldSchema.type == 'int'){
-      return(<TextField type='number' floatingLabelText={fieldSchema.text}  {...this.props} onChange={this.onTextFieldChange} />);
+      return(<TextField fullWidth={true} type='number'  {...this.props} onChange={this.onTextFieldChange} />);
     }
     else if(fieldSchema.type == 'date'){
-      return(<DateFieldEditor floatingLabelText={fieldSchema.text} {...this.props} />);
+      return(<DateFieldEditor fullWidth={true} {...this.props} />);
     }
     else if(fieldSchema.type == 'select'){
-      return (<SelectFieldEditor floatingLabelText={fieldSchema.text} {...this.props}/>);
+      return (<SelectFieldEditor fullWidth={true} {...this.props}/>);
     }
     else if(fieldSchema.type == 'link'){
-      return (<LinkFieldEditor floatingLabelText={fieldSchema.text} {...this.props}/>);
+      return (<LinkFieldEditor fullWidth={true} {...this.props}/>);
     }
     else if(fieldSchema.type == 'boolean'){
       return (<BoolFieldEditor disabled={fieldSchema.read_only} {...this.props}/>);
     }
     else{
-      return(<TextField floatingLabelText={fieldSchema.text} {...this.props} onChange={this.onTextFieldChange} />);
+      return(<TextField fullWidth={true} {...this.props} onChange={this.onTextFieldChange} />);
     }
   }
+
 }
 
 //**Object Form Related
@@ -59,18 +60,25 @@ export const renderInputField = ({ input, label, meta: { touched, error }, ...cu
     d_disable = true;
   }
   return (
-  <FieldEditor floatingLabelFixed={true}
-    errorText={touched && error}
-    disabled ={d_disable}
-    {...input}
-    onChange={function(val){
-      if(custom.beforeFieldChange(input.name, val)){
-        input.onChange(val);
-        custom.afterFieldChange(input.name, val);
-      }
-    }.bind(this)}
-    {...custom}
-  />
+    <div className='row'>
+      <div className='col-sm-4'>
+        <div style={{textAlign: 'right', paddingTop: 12, lineHeight:'24px', fontWeight: 500}}>{custom.fieldSchema.text}</div>
+      </div>
+      <div className='col-sm-7'>
+        <FieldEditor floatingLabelFixed={true}
+          errorText={touched && error}
+          disabled ={d_disable}
+          {...input}
+          onChange={function(val){
+            if(custom.beforeFieldChange(input.name, val)){
+              input.onChange(val);
+              custom.afterFieldChange(input.name, val);
+            }
+          }.bind(this)}
+          {...custom}
+        />
+      </div>
+    </div>
   )
 }
 

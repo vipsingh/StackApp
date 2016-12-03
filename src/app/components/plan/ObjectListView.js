@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -12,21 +13,25 @@ import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import Checkbox from 'material-ui/Checkbox';
 import Paper from 'material-ui/Paper';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import Avatar from 'material-ui/Avatar';
 
 import api_object from '../../api/object';
+import OIcon from '../widget/ObjectIcon';
 import DataPager from '../widget/DataPager';
 import ObjectFilterBox from '../widget/ObjectFilterBox';
 import {cellFormatter} from '../helpers/ObjectList';
 
 class ObjectListView extends Component{
   static contextTypes = {
-    router: PropTypes.func.isRequired
+    router: PropTypes.func.isRequired,
+    muiTheme: PropTypes.object.isRequired
   }
   constructor(props){
     super(props);
     this.state={schemaLoaded: false, loading: true,
       originalRows : [], rows : [], selectedIndexes: [], totalCount: 0,
-      currentPage: 1, pageSize: 10
+      currentPage: 1, pageSize: 25
     };
     this.columns =[];
     this.modelSchema=null;
@@ -115,11 +120,6 @@ class ObjectListView extends Component{
     this.loadData(1);
   }
 
-  raiseNew = ()=>{
-    //create new object
-    this.context.router.push("/object/form/"+this.modelSchema.name);
-  }
-
   onRowsSelected = (rows)=> {
     this.setState({selectedIndexes: this.state.selectedIndexes.concat(rows.map(r => r.rowIdx))});
   }
@@ -146,27 +146,37 @@ class ObjectListView extends Component{
         };
       }
       return(
-        <div>
-          <DocToolBar title={this.modelSchema.text}
+        <Paper>
+          <DocToolBar name={this.modelSchema.name} title={this.modelSchema.text}
           onRefreshCommand={()=>{this.loadData(1)}}
-          onNewCommand={this.raiseNew}
+          onNewCommand={this.raiseNew} style={{color: this.context.muiTheme.toolbar.color}}
           />
-          <Paper>
-            <div className='row'>
+
+          <div className='row'>
               <div className='col-xs-12'>
                 <ObjectFilterBox modelSchema={this.modelSchema} onSearch={this.handleOnSearch} onFilterChanged={this.handleFilterChanged} />
               </div>
-            </div>
-          </Paper>
-          <ReactDataGrid
-            columns={this.columns}
-            rowKey='id'
-            rowGetter={this.rowGetter}
-            rowsCount={this.state.rows.length}
-            onGridSort={this.handleGridSort}
-            rowSelection={rowSelection}
-            >
-          </ReactDataGrid>
+          </div>
+          {
+            function(){
+              if(this.props.simpleList){
+                return this.renderSimpleList();
+              }
+              else{
+                return (
+                  <ReactDataGrid
+                    columns={this.columns}
+                    rowKey='id'
+                    rowGetter={this.rowGetter}
+                    rowsCount={this.state.rows.length}
+                    onGridSort={this.handleGridSort}
+                    rowSelection={rowSelection}
+                    >
+                  </ReactDataGrid>
+                )
+              }
+            }.bind(this)()
+          }
           <Paper>
             <div className='row'>
               <div className='col-sm-4'></div>
@@ -176,22 +186,49 @@ class ObjectListView extends Component{
               </div>
             </div>
           </Paper>
-        </div>
+        </Paper>
         );
     }
+  }
+
+  renderSimpleList(){
+    return(
+      <Table selectable={false}>
+        <TableBody displayRowCheckbox={false} stripedRows ={true} showRowHover={true}>
+        {
+          this.state.rows.map((dt)=>{
+            let l_letter = dt.name.substr(0,1).toUpperCase();
+            return(<TableRow>
+              <TableRowColumn>
+                <div style={{display:'flex', boxSizing: 'border-box', position: 'relative', whiteSpace: 'nowrap', padding: 5}}>
+                  <Avatar>{l_letter}</Avatar>
+                  <div>
+                    {dt.name}
+                  </div>
+                </div>
+              </TableRowColumn>
+            </TableRow>)
+          }, this)
+        }
+        </TableBody>
+      </Table>
+      );
   }
 }
 export default ObjectListView;
 
 const DocToolBar = (props) =>
     <Toolbar>
-      <ToolbarTitle text={props.title} />
+      <ToolbarGroup firstChild={true}>
+        <FlatButton style={{color:props.style.color}}
+          label={props.title}
+          icon={<OIcon name={props.name} />}
+        />
+      </ToolbarGroup>
       <ToolbarGroup>
         <ToolbarSeparator />
         <RaisedButton primary={true} onTouchTap={props.onRefreshCommand}
           icon={<FontIcon className="fa fa-refresh" />} />
-        <RaisedButton primary={true} onTouchTap={props.onNewCommand}
-          icon={<FontIcon className="fa fa-plus" />} />
         <IconMenu
             iconButtonElement={
               <IconButton touch={true}>

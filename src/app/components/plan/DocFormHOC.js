@@ -58,18 +58,16 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
       const newProps = {
       }
       return (
-        <div>
+        <Paper zDepth={2}>
           <div className='row'>
             <div className='col-xs-12'>
-              <DocToolbar title={this.props.modelSchema.text}
+              <DocToolbar name={this.props.modelSchema.name} title={this.props.modelSchema.text}
                   saveCommand={this.props.handleSubmit(this.handleSubmit)}/>
             </div>
           </div>
           <div className='row'>
-            <div className='col-xs-12'>
-              <Paper zDepth={2} style={style.paper}>
-                <WrappedComponent {...this.props} {...newProps}/>
-              </Paper>
+            <div className='col-xs-12' style={style.paper}>
+              <WrappedComponent {...this.props} {...newProps}/>
             </div>
           </div>
           <div className='row'>
@@ -78,7 +76,7 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
           <Paper>
               {JSON.stringify(this.props.formValues)}
           </Paper>
-        </div>
+        </Paper>
       )
     }
   }

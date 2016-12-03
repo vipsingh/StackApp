@@ -1,7 +1,7 @@
 
 export default class Custom{
   constructor(){
-    this.arrFieldChangePublisher =[{field:'user', method:
+    this.OnFieldChangeSubscribers =[{field:'user', method:
       (value)=>{
         let that = this;
         return new Promise((resolve, reject)=>{

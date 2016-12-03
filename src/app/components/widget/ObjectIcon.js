@@ -1,5 +1,6 @@
 import React from 'react';
 import FontIcon from 'material-ui/FontIcon';
+import setting_cell from 'material-ui/svg-icons/action/settings-cell';
 import Icons from '../../../appContent/icons';
 
  const ObjectIcon = (props)=>{
@@ -8,7 +9,7 @@ import Icons from '../../../appContent/icons';
     return (<MIcon {...props} />);
   }
   else {
-    return (<FontIcon {...props} className='fa fa-file-o' />);
+    return (<setting_cell {...props} />);
   }
 }
 export default ObjectIcon;

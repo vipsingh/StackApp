@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ObjectListView from '../components/plan/ObjectListView';
+import FullListLayout from '../components/plan/FullListLayout';
 
 class ObjListWrapper extends Component{
   constructor(props){
@@ -23,7 +23,7 @@ class ObjListWrapper extends Component{
     if(this.state.loaded){
       let objParam = {name:this.props.params.name, query: this.props.location.query}
       return(
-        <ObjectListView routeParam={objParam}></ObjectListView>
+        <FullListLayout routeParam={objParam}></FullListLayout>
       )
     }
     else{

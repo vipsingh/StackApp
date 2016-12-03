@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ModuleBoard from './plan/ModuleBoard';
+import ObjectSmallView from './widget/ObjectSmallView';
 
 class Home extends Component{
 
@@ -13,7 +14,7 @@ class Home extends Component{
         <label>HOME</label>
         <button onClick={this.handleClick} >Click Me</button>
         <br/>
-        <ModuleBoard />
+        <ObjectSmallView id={1} title={'D R Boss'} title1={'xy_gh@gm.com'} />
         </div>
       )
     }

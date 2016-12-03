@@ -52,12 +52,19 @@ class SimpleFormEditor extends React.Component {
           _.map(this.props.modelSchema.fields, (fl) => {
             var fl_state = this.state.values[fl.name];
             if(!fl.hidden){
-              return (<div><FieldEditor floatingLabelFixed={true}
-                fieldSchema={fl} name={fl_state.name}
-                value={fl_state.value}
-                onChange={(val)=>{this.handleOnChange(val,fl.name)}}
-                errorText={fl_state.touched && fl_state.error}
-                onFocus={this.handleOnFocus} /><br/></div>)
+              return (<div className='row'>
+                  <div className='col-xs-4'>
+                    <div style={{textAlign: 'right', paddingTop: 12, lineHeight:'24px', fontWeight: 500}}>{fl.text}</div>
+                  </div>
+                  <div className='col-xs-7'>
+                    <FieldEditor floatingLabelFixed={true}
+                    fieldSchema={fl} name={fl_state.name}
+                    value={fl_state.value}
+                    onChange={(val)=>{this.handleOnChange(val,fl.name)}}
+                    errorText={fl_state.touched && fl_state.error}
+                    onFocus={this.handleOnFocus} />
+                  </div>
+                </div>)
 
             }
           })

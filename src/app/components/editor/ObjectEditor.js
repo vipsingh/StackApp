@@ -68,11 +68,20 @@ class ObjectEditor extends Component{
             )
           }
           else if(fl.length == 1){
-            return (
-              <div className='row'>
-                <div className='col-xs-12'>{this.renderField(fl[0])}</div>
-              </div>
-            )
+            if(fl[0].type == 'one_to_many' || fl[0].type == 'one_to_one'){
+              return (
+                <div className='row'>
+                  <div className='col-xs-12'>{this.renderField(fl[0])}</div>
+                </div>
+              )
+            }
+            else{
+              return (
+                <div className='row'>
+                  <div className='col-xs-6'>{this.renderField(fl[0])}</div>
+                </div>
+              )
+            }
           }
         })
       }
@@ -83,7 +92,7 @@ class ObjectEditor extends Component{
   render() {
     var {fieldSchema} = this.props;
     return(
-      <div>
+      <div style={{padding: 5}}>
         {this.renderForm(fieldSchema.fields)}
       </div>
     )

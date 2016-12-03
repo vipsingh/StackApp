@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import { Field, FieldArray, reduxForm, formValueSelector, change,arrayPush } from 'redux-form';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import FieldEditor, {renderInputField, renderStaticField} from './FieldEditor';
@@ -11,12 +11,14 @@ import _ from 'lodash';
 
 const stylee ={
   headerColIndex:{width:100},
-  wrapperStyle:{border:'1px solid rgb(224, 224, 224)'}
+  wrapperStyle:{border:'1px solid rgb(224, 224, 224)'},
+  rowAction: {width:24, height: 24, padding: 3}
 }
 
 class ListEditor extends React.Component {
   static contextTypes = {
-    $formName: React.PropTypes.string
+    $formName: React.PropTypes.string,
+    muiTheme: PropTypes.object.isRequired
   };
   constructor(props){
     super(props);
@@ -76,7 +78,8 @@ class ListEditor extends React.Component {
         fl_schema={this.props.fieldSchema.fields}
         addRow={this.addRow}
         editRow={this.editRow}
-        removeRow={this.removeRow}/>
+        removeRow={this.removeRow}
+        context={this.context}/>
         <Dialog
                 title="Edit"
                 modal={false}
@@ -94,10 +97,10 @@ class ListEditor extends React.Component {
   }
 }
 
-const renderMembers = ({ fields, fl_schema, formValues, addRow, editRow, removeRow }) => (
+const renderMembers = ({ fields, fl_schema, formValues, addRow, editRow, removeRow, context }) => (
   <div>
     <Table selectable={false} wrapperStyle={stylee.wrapperStyle}>
-      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+      <TableHeader displaySelectAll={false} adjustForCheckbox={false} style={context.muiTheme.tableHeader}>
         <TableRow>
           {_.map(fl_schema, (fl) => {
             if(!fl.hidden){
@@ -107,7 +110,7 @@ const renderMembers = ({ fields, fl_schema, formValues, addRow, editRow, removeR
           <TableHeaderColumn style={stylee.headerColIndex}>#</TableHeaderColumn>
         </TableRow>
       </TableHeader>
-      <TableBody displayRowCheckbox={false}>
+      <TableBody displayRowCheckbox={false} stripedRows ={true} showRowHover={true}>
       {
         fields.map((member, index) => (
           <TableRow>
@@ -120,15 +123,20 @@ const renderMembers = ({ fields, fl_schema, formValues, addRow, editRow, removeR
                   }
               })}
               <TableRowColumn style={stylee.headerColIndex}>
-                <IconButton iconClassName="fa fa-remove" onClick={() => removeRow(fields,index)} />
-                <IconButton iconClassName="fa fa-edit" onClick={() => editRow(member, index, fields)} />
+                <IconButton iconClassName="fa fa-remove" onClick={() => removeRow(fields,index)} style={stylee.rowAction} />
+                <IconButton iconClassName="fa fa-edit" onClick={() => editRow(member, index, fields)} style={stylee.rowAction}  />
               </TableRowColumn>
           </TableRow>
         ))
       }
       </TableBody>
     </Table>
-    <FlatButton label="Add Row" onTouchTap={() => addRow(fields)} icon={<FontIcon className="fa fa-plus" />}></FlatButton>
+    <div>
+      <div style={{float: 'right'}}>
+        <FlatButton label="Add Row" onTouchTap={() => addRow(fields)} icon={<FontIcon className="fa fa-plus" />} ></FlatButton>
+      </div>
+    </div>
+
   </div>
 );
 

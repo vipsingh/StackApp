@@ -1,5 +1,6 @@
 import React from 'react';
 import FontIcon from 'material-ui/FontIcon';
+import module_core from 'material-ui/svg-icons/hardware/developer-board';
 import Icons from '../../../appContent/icons';
 
  const ModuleIcon = (props)=>{

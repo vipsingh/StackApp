@@ -63,7 +63,6 @@ export class SelectFieldEditor extends Component{
 export class BoolFieldEditor extends Component{
   constructor(props){
     super(props);
-    this.values = props.fieldSchema.list_values;
   }
   valChange = (event, isInputChecked)=>{
     this.props.onChange(isInputChecked);
@@ -72,7 +71,6 @@ export class BoolFieldEditor extends Component{
     const fieldSchema = this.props.fieldSchema;
     return(<div style={chkStyles.block}>
       <Checkbox {...this.props}
-      label={fieldSchema.text}
       checked={!!this.props.value}
       onCheck={this.valChange}
       style={chkStyles.checkbox}
@@ -82,6 +80,9 @@ export class BoolFieldEditor extends Component{
 }
 
 export class LinkFieldEditor extends Component{
+  static contextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+  }
   constructor(props){
     super(props);
     this.isOpened = false;
@@ -126,10 +127,11 @@ export class LinkFieldEditor extends Component{
   }
   render(){
     const fieldSchema = this.props.fieldSchema;
-    //width: props.fullWidth ? '100%' : 256,
-    //height: (props.rows - 1) * 24 + (props.floatingLabelText ? 72 : 48),
+    let styl = {marginTop: 12};
+    styl.width = this.props.fullWidth ? '100%' : 256;
+    styl.height = this.props.floatingLabelText ? 72 : 48;
     return(
-      <div style={{width:256, height: 72, marginTop: 14}}>
+      <div style={styl}>
         <label style={{top: 38, zIndex: 1, cursor: 'text'}}>{this.props.floatingLabelText}</label>
         <Select {...this.props}
             isLoading={this.state.isLoading}
@@ -139,7 +141,7 @@ export class LinkFieldEditor extends Component{
             onChange={this.valChange}
             onBlur={this.onBlur}
         />
-       {this.props.errorText && <span>{this.props.errorText}</span>}
+       {this.props.errorText && <span style={{color: this.context.muiTheme.palette.dangerColor}}>{this.props.errorText}</span>}
       </div>
     )
   }
