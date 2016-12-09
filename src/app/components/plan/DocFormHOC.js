@@ -33,6 +33,7 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
     constructor(props){
       super(props);
       this.handleSubmit = this.handleSubmit.bind(this);
+      debugger;
     }
     componentWillMount() {
       var that = this;

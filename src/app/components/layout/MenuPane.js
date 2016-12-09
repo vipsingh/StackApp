@@ -21,10 +21,6 @@ class MenuPane extends Component {
           primaryText="Customer"
           href ="#/object/form/Customer"
         />
-        <ListItem  leftIcon={<OIcon name='Partner' />}
-          primaryText="Partner"
-          href ="#/object/form/Partner?id=2"
-        />
         <ListItem  leftIcon={<OIcon name='Customer' />}
           primaryText="Customer List"
           href ="#/object/list/Customer"
@@ -32,6 +28,10 @@ class MenuPane extends Component {
         <ListItem  leftIcon={<OIcon name='Partner' />}
           primaryText="Partner List"
           href ="#/object/list/Partner"
+        />
+        <ListItem  leftIcon={<OIcon name='Partner' />}
+          primaryText="Sales Order"
+          href ="#/object/list/SalesOrder"
         />
       </List>
     );

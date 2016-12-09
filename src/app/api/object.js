@@ -71,6 +71,21 @@ var object_api={
         handleError(err);
       });
     });
+  },
+
+  executeFunction:function(object_name, func_name, id, data) {
+    return new Promise((resolve, reject)=>{
+      request.post('/object/'+object_name+'/executeFunction/'+id, data).then(function(res) {
+        resolve(res.data);
+      }).catch(function(err) {
+        reject(err);
+        handleError(err);
+      });
+    });
+  },
+
+  query: function(object_name, select = [], where = []) {
+
   }
 };
 export default object_api;

@@ -71,9 +71,10 @@ class SimpleFormEditor extends React.Component {
         }
           <FlatButton label="Save" onClick={this.commitForm}/>
           <FlatButton label="Cancel" onClick={this.cancelForm} />
-          <label>{JSON.stringify(this.state.values)}</label>
+
       </div>
     );
   }
 }
 export default SimpleFormEditor;
+//<label>{JSON.stringify(this.state.values)}</label>

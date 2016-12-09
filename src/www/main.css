@@ -23,20 +23,6 @@ body {
       position: relative;
   }
 }
-.sidebar-wrapper {
-    z-index: 1000;//zIndex
-    position: fixed;
-    left: 250px;
-    width: 0;
-    height: 100%;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #000;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
 
 .page-content-wrapper {
     width: 100%;

@@ -34,7 +34,7 @@ export class DateFieldEditor extends Component{
       return null;
   }
   render(){
-    return(<DatePicker {...this.props} value={this.formatDate(this.props.value)} onChange={this.dateChange} />)
+    return(<DatePicker {...this.props} value={this.formatDate(this.props.value)} onChange={this.valChange} />)
   }
 }
 

@@ -5,7 +5,7 @@ export default {
     Alert.success(message, op);
   },
   warn: function(message, op) {
-    Alert.warn(message, op);
+    Alert.warning(message, op);
   },
   info: function(message, op) {
     Alert.info(message, op);

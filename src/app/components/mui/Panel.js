@@ -12,7 +12,15 @@ const sty = {
   },
   body:{
 
-  }
+  },
+  ul_style: {position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 9,
+      listStyle: 'none',
+      padding: 0,
+      margin: 0,
+      height: '100%'}
 }
 class Panel extends Component{
   static contextTypes = {
@@ -27,6 +35,11 @@ class Panel extends Component{
           <div style={sty.bar}>
             <div>
               <span style={{fontWeight: 500, fontSize: 14}}>{this.props.title}</span>
+            </div>
+            <div style={{position: 'relative', padding: 0, boxSizing: 'border-box', marginRight: 10}}>
+              <ul style={sty.ul_style}>
+                <li style={{display:'inline-block', float: 'left'}}><a><i className='fa fa-times'></i></a></li>
+              </ul>
             </div>
           </div>
           <div style={sty.body}>

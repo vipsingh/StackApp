@@ -11,6 +11,7 @@ import LoadingIndicator from './widget/LoadingIndicator';
 import LeftDrawer from './layout/LeftDrawer';
 import AppBar from './layout/AppBar';
 import RightDrawer from './layout/RightDrawer';
+import AlertBoxTemplate from './mui/AlertBoxTemplate';
 
 import 'react-s-alert/dist/s-alert-default.css';
 
@@ -175,7 +176,7 @@ class CoreLayout extends Component{
             onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
             open={navDrawerOpen} />
           <RightDrawer style={styles.rightDrawer} open={rightDrawerOpen} onToogleRightDrawer={this.handleToogleRightDrawer}/>
-          <Alert stack={{limit: 5}} offset={70} />
+          <Alert stack={{limit: 5}} offset={50} contentTemplate={AlertBoxTemplate} />
       </div>
     );
 
@@ -189,3 +190,23 @@ CoreLayout.propTypes = {
 }
 
 export default  withWidth()(CoreLayout);
+/*
+<div style={{padding:'8px 0px', position: 'relative'}}>
+  <div>
+    <span tabindex="0" type="button" style={noti_styl.container}>
+      <div>
+        <div style={{marginLeft: 0, padding: '8px 8px 0px 72px', position: 'relative'}}>
+          <div color="#757575" style={noti_styl.iconBox}>
+            <span className='fa fa-user' style={{color: 'rgba(0, 0, 0, 0.870588)',position: 'relative',fontSize: 18,display: 'inline-block',userSelect: 'none'}}></span>
+          </div>
+          <button tabindex="0" type="button" style={noti_styl.closeButton}>
+              <span className='fa fa-close' style={{color: 'rgba(0, 0, 0, 0.870588)',position: 'relative',fontSize: 16,display: 'inline-block',userSelect: 'none'}}></span>
+          </button>
+          <div style={noti_styl.message}>{'Some message to be displayed 0'}</div>
+        </div>
+      </div>
+    </span>
+  </div>
+  <div style={{position: 'absolute', right: 42, fontSize: 12, top: 14}}>{'4:57 PM'}</div>
+</div>
+*/
