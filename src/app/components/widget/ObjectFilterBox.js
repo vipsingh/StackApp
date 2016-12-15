@@ -103,10 +103,18 @@ export default class ObjectFilterBox extends React.Component{
     this.props.onSearch(s_txt);
   }
   submitFilter=()=>{
-    //{"groupOp":"and","rules":[{"field":"Category","op":"bw","value":"cash"},{"field":"ItemName","op":"cn","value":"kiwi"}]}
-    let f_o = {groupOp:"and",rules:[]};
+    //{name: 'xyz', user: 1};//name = 'xyz' and user = 1
+    //{$or:[{name: 'xyz', user: 1}], city: 'xy'};//(name = 'xyz' or user = 1) and city ='xy'
+    //{$or:[{name: {$like: '%xy'}}, {user: {$in:[1,2]}}, {$and:[{city: 'c1'}, {city: 'c2'}]}]}
+    let f_o = {};
     _.each(this.state.filters, (f)=>{
-      f_o.rules.push({field: f.field, op: f.op, value: f.value});
+      if(f_o.hasOwnProperty(f.field)){
+        let d = f_o[f.field];
+        d[f.op] = f.value;
+      }
+      else{
+        f_o[f.field] ={[f.op]: f.value};
+      }
     });
     this.props.onFilterChanged(f_o);
   };

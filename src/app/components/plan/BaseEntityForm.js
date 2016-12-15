@@ -169,10 +169,7 @@ export default BaseEntityForm;
   OnSave => after saving record
   BeforeSave => before saving record
 **Field Specific
-  OnFieldChange => After field value change
-  BeforeFieldChange => before field value change
-**List Specific
-  OnAddRow => On adding new row
-  OnRemoveRow => On removing row
+  OnFieldChange => After field value change (for listObject this will called on addRow, removeRow)
+  BeforeFieldChange => before field value change("")
 
 */

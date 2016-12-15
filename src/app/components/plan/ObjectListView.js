@@ -37,7 +37,7 @@ class ObjectListView extends Component{
     this.modelSchema=null;
     this.rowGetter = this.rowGetter.bind(this);
     this.handleGridSort = this.handleGridSort.bind(this);
-    this.currentSortInfo = {field:'', dir:'ASC'};
+    this.currentSortInfo = {field: '', dir:'ASC'};
     this.currentSearch = "";
     this.filterInfo = {};
   }
@@ -46,6 +46,7 @@ class ObjectListView extends Component{
     return api_object.getSchema(this.props.routeParam.name).then((schema)=>{
       that.modelSchema = schema;
       that.buildColumns();
+      that.currentSortInfo = {field: schema.field_title, dir:'ASC'};
       that.setState({schemaLoaded:true});
       setTimeout(()=>{
           that.loadData(1);
@@ -82,9 +83,9 @@ class ObjectListView extends Component{
     that.setState({loading: true});
     api_object.getListData(this.props.routeParam.name,{
         pageIndex: index,
-        sortinfo:this.currentSortInfo,
+        orderBy:this.currentSortInfo,
         search: this.currentSearch,
-        filters: this.filterInfo}).then((data)=>{
+        where: this.filterInfo}).then((data)=>{
       var originalRows = data.data;
       var rows = originalRows.slice(0);
       that.setState({loading: false,

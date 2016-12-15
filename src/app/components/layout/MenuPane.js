@@ -33,6 +33,10 @@ class MenuPane extends Component {
           primaryText="Sales Order"
           href ="#/object/list/SalesOrder"
         />
+        <ListItem  leftIcon={<OIcon name='Partner' />}
+          primaryText="Item"
+          href ="#/object/list/Item"
+        />
       </List>
     );
   }

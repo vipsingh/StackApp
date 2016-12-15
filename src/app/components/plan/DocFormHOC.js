@@ -44,7 +44,7 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
       this.props.dispatch(startSubmit(formName));
       that.props.dispatch(startLoading());
       api_object.saveData(this.props.modelSchema.name, data).then((d)=>{
-        Notify.success(`Document[${d.id}] Saved`);
+        Notify.success(`${this.props.modelSchema.text}[${d.id}] Saved`);
         that.props.dispatch(endLoading());
         that.props.dispatch(stopSubmit(formName));
         that.context.router.push("/object/form/"+this.modelSchema.name+"?edit=false&id="+d.id);
