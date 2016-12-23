@@ -2,23 +2,32 @@ import React from 'react';
 import _ from 'lodash';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
+
 import FieldEditor,{renderInputField} from './FieldEditor';
 import api_object from '../../api/object';
 
 class SimpleFormEditor extends React.Component {
   constructor(props){
     super(props);
-    var st ={current:this.props.values, values:{id:this.props.values.id}};
-    _.map(this.props.modelSchema.fields, (fl) => {
-      st.values[fl.name]= {name:fl.name, value:(this.props.values[fl.name])?this.props.values[fl.name]:null, error:null, touched: true};
-    });
+    var st ={current:this.props.values, values:{id:0}};
     this.state = st;
     this.dep_fields = [];
-    _.each(this.props.modelSchema.fields, function(fld) {
-      if(fld.dep && fld.dep.on){
-        this.dep_fields.push({field: fld.dep.on, dest_field: fld.name, expr: fld.dep.expr, link_object: this.props.modelSchema.fields[fld.dep.on].link_object})
-      }
-    }.bind(this));
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.values){
+      var vals = {id:0}
+      _.map(nextProps.modelSchema.fields, (fl) => {
+        vals[fl.name]= {name:fl.name, value:(nextProps.values[fl.name])?nextProps.values[fl.name]:null, error:null, touched: true};
+      });
+      this.setState({current: nextProps.values, values:vals});
+      _.each(nextProps.modelSchema.fields, function(fld) {
+        if(fld.dep && fld.dep.on){
+          this.dep_fields.push({field: fld.dep.on, dest_field: fld.name, expr: fld.dep.expr, link_object: nextProps.modelSchema.fields[fld.dep.on].link_object})
+        }
+      }.bind(this));
+    }
   }
 
   handleOnChange = (ev, fl_name)=>{
@@ -29,6 +38,7 @@ class SimpleFormEditor extends React.Component {
     else{
       d[fl_name].value = ev;
     }
+    d[fl_name].error = '';
     this.evalComputed(d);
     this.setState({values:d});
     this.afterChange(fl_name, d[fl_name].value);
@@ -73,12 +83,27 @@ class SimpleFormEditor extends React.Component {
   };
 
   validate(){
-
+    var err = {};
+    _.map(this.props.modelSchema.fields, (fl) => {
+      if(fl.required && !this.state.values[fl.name].value){
+        err[fl.name] = `${fl.text} is required.`;
+      }
+    });
+    if(_.keys(err).length > 0){
+      let st = Object.assign({},this.state.values);
+      _.each(_.keys(err),(k)=>{
+        let d = Object.assign({}, st[k], {error: err[k]});
+        st[k] = d;
+      });
+      this.setState({values: st});
+    }
+    return _.keys(err).length === 0;
   }
 
   commitForm=()=>{
-    this.validate();
-    this.props.onCommitForm(this.getJson(this.state.values));
+    if(this.validate()){
+      this.props.onCommitForm(this.getJson(this.state.values));
+    }
   };
   getJson(state){
     var d ={id:state.id};
@@ -92,7 +117,7 @@ class SimpleFormEditor extends React.Component {
     this.props.onCancelForm();
   };
 
-  render(){
+  renderForm(){
     return(
       <div>
         {
@@ -121,11 +146,40 @@ class SimpleFormEditor extends React.Component {
             }
           })
         }
-          <FlatButton label="Save" onClick={this.commitForm}/>
-          <FlatButton label="Cancel" onClick={this.cancelForm} />
-
       </div>
     );
+  }
+
+  render(){
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.props.onCancelForm}
+      />,
+      <FlatButton
+        label="Save"
+        primary={true}
+        onTouchTap={this.commitForm}
+      />,
+    ];
+    if(this.props.dialogOpen){
+    return (
+    <Dialog
+            title="Edit"
+            modal={false}
+            actions={actions}
+            open={this.props.dialogOpen}
+            onRequestClose={this.props.onCancelForm}
+            autoScrollBodyContent={true}
+          >
+          {this.renderForm()}
+    </Dialog>)
+    }
+    else{
+      return(<div></div>)
+    }
   }
 }
 export default SimpleFormEditor;

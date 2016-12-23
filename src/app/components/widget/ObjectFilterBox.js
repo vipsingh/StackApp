@@ -34,14 +34,14 @@ export default class ObjectFilterBox extends React.Component{
 
     });
     this.criteria =[{value:'$eq', text:'='},{value:'$ne', text:'!='},
-      {value:'$in', text:'In', includeIn:['string','link','select']},
+      {value:'$in', text:'In'},
       {value:'$cn', text:'Contains', includeIn:['string']},
       {value:'$sw', text:'StartWith', includeIn:['string']},
       {value:'$ew', text:'EndWith', includeIn:['string']},
-      {value:'$gt', text:'>', includeIn:['decimal', 'monetary', 'date', 'datetime']},
-      {value:'$lt', text:'<', includeIn:['decimal', 'monetary', 'date', 'datetime']},
-      {value:'$gte', text:'>=', includeIn:['decimal', 'monetary', 'date', 'datetime']},
-      {value:'$lte', text:'<=', includeIn:['decimal', 'monetary', 'date', 'datetime']}
+      {value:'$gt', text:'>', includeIn:['decimal', 'monetary', "int", 'date', 'datetime']},
+      {value:'$lt', text:'<', includeIn:['decimal', 'monetary', "int", 'date', 'datetime']},
+      {value:'$gte', text:'>=', includeIn:['decimal', 'monetary', "int", 'date', 'datetime']},
+      {value:'$lte', text:'<=', includeIn:['decimal', 'monetary', "int", 'date', 'datetime']}
     ];
     this.state={
       filters:[],

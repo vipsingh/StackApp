@@ -80,19 +80,14 @@ class ListEditor extends React.Component {
         editRow={this.editRow}
         removeRow={this.removeRow}
         context={this.context}/>
-        <Dialog
-                title="Edit"
-                modal={false}
-                open={this.state.open}
-                onRequestClose={this.handleClose}
-                autoScrollBodyContent={true}
-              >
-                <SimpleFormEditor
-                  modelSchema={this.props.fieldSchema}
-                  values={this.state.current}
-                  onCommitForm={this.handleCommitRow}
-                  onCancelForm={this.handleCancelEditRow} />
-        </Dialog>
+
+        <SimpleFormEditor
+          modelSchema={this.props.fieldSchema}
+          values={this.state.current}
+          dialogOpen={this.state.open}
+          onCommitForm={this.handleCommitRow}
+          onCancelForm={this.handleCancelEditRow} />
+
         </div>);
   }
 }

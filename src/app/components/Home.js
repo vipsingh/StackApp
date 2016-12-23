@@ -2,6 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import Paper from 'material-ui/Paper';
 import ModuleBoard from './plan/ModuleBoard';
 import TreeGridView from './widget/TreeGridView';
+import FlatButton from 'material-ui/FlatButton';
+import Promise from 'bluebird';
+
 
 class Home extends Component{
   static contextTypes = {
@@ -12,16 +15,14 @@ class Home extends Component{
     this.state ={str: ''};
   }
     handleClick = ()=>{
-
     }
     render(){
 
       return(
         <div>
-        <label>HOME</label>
-        <button onClick={this.handleClick} >Click Me</button>
+        <FlatButton label='Home' onClick={this.handleClick} />
         <br/>
-        <TreeGridView />
+
         </div>
       )
     }

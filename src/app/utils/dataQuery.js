@@ -14,10 +14,10 @@ class Builder{
     return this;
   }
   where(column, operator, value){
-
+    return this;
   }
   orWhere(){
-    
+    return this;
   }
 }
 
