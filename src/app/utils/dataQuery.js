@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-class Builder{
-  constructor(){
+class ObjectQuery{
+  constructor(object_name){
     this._statements = [];
-    this.and = this;
-    this._method = 'select';
+    this.object_name = object_name;
+    this.aggrigate = '';
   }
   select(columns){
     this._statements.push({
@@ -13,12 +13,49 @@ class Builder{
     });
     return this;
   }
-  where(column, operator, value){
+  where(filters){
+    this._statements.push({
+      grouping: 'where',
+      filters
+    });
     return this;
   }
-  orWhere(){
+  limit(limit){
+    this._statements.push({
+      grouping: 'limit',
+      limit
+    });
     return this;
   }
+  count(){
+    this._statements.push({
+      grouping: 'count'
+    });
+    this.aggrigate = 'count';
+    return this;
+  }
+  sum(field){
+    this._statements.push({
+      grouping: 'sum',
+      field
+    });
+    this.aggrigate = 'sum';
+    return this;
+  }
+  max(field){
+    this._statements.push({
+      grouping: 'max',
+      field
+    });
+    this.aggrigate = 'max';
+    return this;
+  }
+  then(cb){
+    return new Promise((resolve, reject)=>{
+
+    }).then(cb);
+  }
+
 }
 
-export default Builder;
+export default ObjectQuery;

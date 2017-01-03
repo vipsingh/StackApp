@@ -84,8 +84,8 @@ var object_api={
     });
   },
 
-  query: function(object_name, select = [], where = []) {
-
+  query: function(object_name) {
+    
   }
 };
 export default object_api;
