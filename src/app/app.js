@@ -6,16 +6,15 @@ import xApp from './reducers';
 import App from './components/App';
 import thunk from 'redux-thunk';
 
-
 let store = createStore(xApp, compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
-let routes = require('./routes/index').default(store);
+//let AppRoutes = require('./routes/index');
 render(
 
   <Provider store={store}>
-    <App routes={routes} />
+    <App/>
   </Provider>,
   document.getElementById('app')
 )

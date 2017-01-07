@@ -1,16 +1,23 @@
+import React from 'react';
 import CoreLayout from '../components/CoreLayout';
 import Home from '../components/Home';
 import ObjFormWrapper from './ObjFormWrapper';
 import ObjListWrapper from './ObjListWrapper';
+import NotFound from './NotFound';
+import { Router, Route, IndexRoute, browserHistory, hashHistory } from 'react-router'
 
-export const createRoutes = (store) => ({
-  path: '/',
-  component: CoreLayout,
-  indexRoute: {component:Home},
-  childRoutes: [
-    {path:'/object/form/:name(/:id)', component: ObjFormWrapper },
-    {path:'/object/list/:name', component: ObjListWrapper },
-  ]
-})
 
-export default createRoutes
+class AppRoutes extends React.Component{
+  render(){
+    return(<Router history={hashHistory}>
+        <Route path="/" component={CoreLayout}>
+            <IndexRoute component={Home}/>
+            <Route path="/object/form/:name(/:id)" component={ObjFormWrapper}/>
+            <Route path="/object/list/:name" component={ObjListWrapper}/>
+            <Route path="*" component={NotFound}/>
+          </Route>
+    </Router>)
+  }
+}
+
+export default AppRoutes;

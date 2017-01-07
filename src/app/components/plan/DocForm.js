@@ -18,10 +18,13 @@ class DocForm extends Component{
   }
   componentWillMount() {
     var that = this;
-    // require.ensure([], function(require) {
-    //   debugger;
-    //   var doc = require("../../../appContent/objects/Partner");
-    // });
+    //let m_path = this.props.routeParam.name;
+    // import("../../../appContent/objects/"+ m_path ).then((module)=>{
+    //   let m_doc = new module.default();
+    //   return m_doc;
+    // }).catch((err)=>{
+    //   console.log("Error in loading object extended component.");
+    // });    
 
     that.props.dispatch(startLoading());
     api_object.getSchema(this.props.routeParam.name).then((sch)=>{

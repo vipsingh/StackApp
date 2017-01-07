@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, browserHistory  } from 'react-router';
+import { Route, Router, browserHistory  } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -8,6 +8,7 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import axios from 'axios';
 
 import stack from '../stack';
+import AppRoutes from '../routes/index';
 
 injectTapEventPlugin();
 
@@ -30,10 +31,10 @@ const muiTheme = getMuiTheme();
 
 class App extends React.Component {
   render () {
-    const {  routes } = this.props
+    //const {  Routes } = this.props
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <Router children={routes} />
+        <AppRoutes></AppRoutes>
       </MuiThemeProvider>
     )
   }

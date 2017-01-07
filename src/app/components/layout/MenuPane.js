@@ -5,6 +5,7 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import OIcon from '../widget/ObjectIcon';
 import MIcon from '../widget/ModuleIcon';
+import { Link } from 'react-router'
 
 //const SelectableList = makeSelectable(List);
 
@@ -13,30 +14,30 @@ class MenuPane extends Component {
     return(
       <List>
         <Subheader>Menu</Subheader>
-        <ListItem leftIcon={<MIcon module='home' />}
-          primaryText="Home"
-          href ="#/"
-        />
-        <ListItem leftIcon={<OIcon name='Customer' />}
-          primaryText="Customer"
-          href ="#/object/form/Customer"
-        />
-        <ListItem  leftIcon={<OIcon name='Customer' />}
-          primaryText="Customer List"
-          href ="#/object/list/Customer"
-        />
-        <ListItem  leftIcon={<OIcon name='Partner' />}
-          primaryText="Partner List"
-          href ="#/object/list/Partner"
-        />
-        <ListItem  leftIcon={<OIcon name='Partner' />}
-          primaryText="Sales Order"
-          href ="#/object/list/SalesOrder"
-        />
-        <ListItem  leftIcon={<OIcon name='Partner' />}
-          primaryText="Item"
-          href ="#/object/list/Item"
-        />
+        <Link to ='/'>
+          <ListItem leftIcon={<MIcon module='home' />}
+            primaryText="Home"/>
+        </Link>
+        <Link to ='/object/form/Customer'>
+          <ListItem leftIcon={<OIcon name='Customer' />}
+            primaryText="Customer"/>
+        </Link>
+        <Link to ='/object/list/Customer'>
+          <ListItem  leftIcon={<OIcon name='Customer' />}
+            primaryText="Customer List"/>
+        </Link>
+        <Link to ='/object/list/Partner'>
+          <ListItem  leftIcon={<OIcon name='Partner' />}
+            primaryText="Partner List"/>
+        </Link>
+        <Link to ='/object/list/SalesOrder'>
+          <ListItem  leftIcon={<OIcon name='Partner' />}
+            primaryText="Sales Order"/>
+        </Link>
+        <Link to ='/object/list/Item'>
+          <ListItem  leftIcon={<OIcon name='Partner' />}
+          primaryText="Item"/>
+        </Link>
       </List>
     );
   }
