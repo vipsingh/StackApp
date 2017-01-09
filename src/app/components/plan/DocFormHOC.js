@@ -47,7 +47,7 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
         Notify.success(`${this.props.modelSchema.text}[${d.id}] Saved`);
         that.props.dispatch(endLoading());
         that.props.dispatch(stopSubmit(formName));
-        that.context.router.push("/object/form/"+this.modelSchema.name+"?edit=false&id="+d.id);
+        that.context.router.push("#/object/form/"+that.modelSchema.name+"?edit=false&id="+d.id);
         //that.props.onReload();
       }).catch((err)=>{
         that.props.dispatch(endLoading());

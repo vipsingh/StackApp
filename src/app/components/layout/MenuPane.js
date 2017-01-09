@@ -38,6 +38,10 @@ class MenuPane extends Component {
           <ListItem  leftIcon={<OIcon name='Partner' />}
           primaryText="Item"/>
         </Link>
+        <Link to ='/pos'>
+          <ListItem  leftIcon={<OIcon name='Partner' />}
+          primaryText="POS"/>
+        </Link>
       </List>
     );
   }
