@@ -5,10 +5,10 @@ import { reduxForm, propTypes, getFormValues, isDirty, startSubmit, stopSubmit }
 import Paper from 'material-ui/Paper';
 
 import { startLoading, endLoading } from '../../reducers/indicator';
-import {validateForm} from '../../utils/validator';
-import api_object from '../../api/object';
+import {validateForm} from 'stack_app/utils/validator';
+import api_object from 'stack_app/api/object';
 import DocToolbar from '../widget/DocToolbar';
-import Notify from '../../notify';
+import Notify from 'stack_app/notify';
 
 const style = {
   paper:{padding:10}
@@ -84,7 +84,7 @@ function DocFormHOC(WrappedComponent, formName, modelParams){
   //
   BaseDocForm = reduxForm({
     form: formName,
-    validate: (values)=>{return validateForm(modelParams.modelSchema, values);},
+    //validate: (values)=>{return validateForm(modelParams.modelSchema, values);},
     initialValues: modelParams.initialValues,
     modelSchema: modelParams.modelSchema
   }

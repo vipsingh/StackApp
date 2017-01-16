@@ -25,6 +25,12 @@ const config = {
     path: buildPath, // Path of output file
     filename: 'app.js'
   },
+  resolve:{
+    alias: {
+      stack_app: path.resolve(__dirname, 'stack_app/'),
+      app_content: path.resolve(__dirname, 'app_content/')
+    }
+  },
   plugins: [
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
@@ -49,7 +55,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader?modules']
+        use: ['style-loader', 'css-loader']
       }
     ]
   }

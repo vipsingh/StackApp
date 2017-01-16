@@ -5,12 +5,12 @@ import classNames from 'classnames';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 
-import ListEditor from "../editor/ListEditor";
-import ObjectEditor from "../editor/ObjectEditor";
-import FieldEditor,{FormFieldEditor} from '../editor/FieldEditor';
-import Panel from "../mui/Panel";
+import ListEditor from "stack_app/components/editor/ListEditor";
+import ObjectEditor from "stack_app/components/editor/ObjectEditor";
+import FieldEditor,{FormFieldEditor} from 'stack_app/components/editor/FieldEditor';
+import Panel from "stack_app/components/mui/Panel";
 
-import api_object from '../../api/object';
+import api_object from 'stack_app/api/object';
 
 class BaseEntityForm extends Component{
   constructor(props){

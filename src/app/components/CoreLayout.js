@@ -11,7 +11,7 @@ import LoadingIndicator from './widget/LoadingIndicator';
 import LeftDrawer from './layout/LeftDrawer';
 import AppBar from './layout/AppBar';
 import RightDrawer from './layout/RightDrawer';
-import AlertBoxTemplate from './mui/AlertBoxTemplate';
+import AlertBoxTemplate from 'stack_app/components/mui/AlertBoxTemplate';
 
 import 'react-s-alert/dist/s-alert-default.css';
 

@@ -1,6 +1,6 @@
 //Module specific DashBoard
 import React,{Component, PropTypes} from 'react';
-import {Bar} from '../widget/chart';
+import {Bar} from 'stack_app/components/widget/chart';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
 import Color from 'color';

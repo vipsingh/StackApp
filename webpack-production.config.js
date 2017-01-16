@@ -13,6 +13,12 @@ const config = {
     path: buildPath, // Path of output file
     filename: 'app.js' // Name of output file
   },
+  resolve:{
+    alias: {
+      stack_app: path.resolve(__dirname, 'stack_app/'),
+      app_content: path.resolve(__dirname, 'app_content/')
+    }
+  },
   plugins: [
     // Minify the bundle
     new webpack.optimize.UglifyJsPlugin({

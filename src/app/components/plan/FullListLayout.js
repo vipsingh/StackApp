@@ -2,7 +2,7 @@ import React, {Component,PropTypes} from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-import ObjectListView from './ObjectListView';
+import ObjectListView from 'stack_app/components/widget/ObjectListView';
 
 let btn_style ={
   position: 'fixed',

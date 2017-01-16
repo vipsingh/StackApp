@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-import ModuleIcon from '../widget/ModuleIcon';
+import ModuleIcon from 'stack_app/components/widget/ModuleIcon';
 
 const style={
 

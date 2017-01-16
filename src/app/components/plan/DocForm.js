@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import BaseEntityForm from './BaseEntityForm';
 import DocFormHOC from "./DocFormHOC";
-import api_object from '../../api/object';
+import api_object from 'stack_app/api/object';
 import { startLoading, endLoading } from '../../reducers/indicator';
 
 class DocForm extends Component{
@@ -19,7 +19,7 @@ class DocForm extends Component{
   componentWillMount() {
     var that = this;
     //let m_path = this.props.routeParam.name;
-    // import("../../../appContent/objects/"+ m_path ).then((module)=>{
+    // import("app_content/objects/"+ m_path ).then((module)=>{
     //   let m_doc = new module.default();
     //   return m_doc;
     // }).catch((err)=>{

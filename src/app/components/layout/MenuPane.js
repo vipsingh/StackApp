@@ -3,8 +3,8 @@ import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
-import OIcon from '../widget/ObjectIcon';
-import MIcon from '../widget/ModuleIcon';
+import OIcon from 'stack_app/components/widget/ObjectIcon';
+import MIcon from 'stack_app/components/widget/ModuleIcon';
 import { Link } from 'react-router'
 
 //const SelectableList = makeSelectable(List);
@@ -34,9 +34,9 @@ class MenuPane extends Component {
           <ListItem  leftIcon={<OIcon name='Partner' />}
             primaryText="Sales Order"/>
         </Link>
-        <Link to ='/object/list/Item'>
+        <Link to ='/object/list/Product'>
           <ListItem  leftIcon={<OIcon name='Partner' />}
-          primaryText="Item"/>
+          primaryText="Product"/>
         </Link>
         <Link to ='/pos'>
           <ListItem  leftIcon={<OIcon name='Partner' />}
