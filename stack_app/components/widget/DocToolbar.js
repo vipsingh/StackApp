@@ -9,7 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
-import OIcon from 'stack_app/components/widget/ObjectIcon';
+import OIcon from './ObjectIcon';
 
 export default class DocToolbar extends Component{
   static contextTypes = {

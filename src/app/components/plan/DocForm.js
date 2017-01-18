@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import BaseEntityForm from './BaseEntityForm';
-import DocFormHOC from "./DocFormHOC";
+import BaseEntityForm from 'stack_app/components/base/BaseEntityForm';
+import DocFormHOC from "stack_app/components/base/DocFormHOC";
 import api_object from 'stack_app/api/object';
-import { startLoading, endLoading } from '../../reducers/indicator';
+import { startLoading, endLoading } from 'stack_app/reducers/indicator';
 
 class DocForm extends Component{
   constructor(props){
@@ -24,7 +24,7 @@ class DocForm extends Component{
     //   return m_doc;
     // }).catch((err)=>{
     //   console.log("Error in loading object extended component.");
-    // });    
+    // });
 
     that.props.dispatch(startLoading());
     api_object.getSchema(this.props.routeParam.name).then((sch)=>{

@@ -7,11 +7,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Alert from 'react-s-alert';
 import Paper from 'material-ui/Paper';
 
-import LoadingIndicator from './widget/LoadingIndicator';
+import LoadingIndicator from 'stack_app/components/widget/LoadingIndicator';
+import AlertBoxTemplate from 'stack_app/components/mui/AlertBoxTemplate';
 import LeftDrawer from './layout/LeftDrawer';
 import AppBar from './layout/AppBar';
 import RightDrawer from './layout/RightDrawer';
-import AlertBoxTemplate from 'stack_app/components/mui/AlertBoxTemplate';
 
 import 'react-s-alert/dist/s-alert-default.css';
 

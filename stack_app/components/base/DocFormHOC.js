@@ -5,10 +5,10 @@ import { reduxForm, propTypes, getFormValues, isDirty, startSubmit, stopSubmit }
 import Paper from 'material-ui/Paper';
 
 import { startLoading, endLoading } from '../../reducers/indicator';
-import {validateForm} from 'stack_app/utils/validator';
-import api_object from 'stack_app/api/object';
+import {validateForm} from '../../utils/validator';
+import api_object from '../../api/object';
 import DocToolbar from '../widget/DocToolbar';
-import Notify from 'stack_app/notify';
+import Notify from '../../notify';
 
 const style = {
   paper:{padding:10}
