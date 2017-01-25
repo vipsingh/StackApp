@@ -58,6 +58,7 @@ class ObjectListView extends Component{
   buildColumns(){
     let cols =[{key:'id', name: 'Id', sortable: true, width: 80}];
     _.map(this.modelSchema.fields, function(fl){
+      console.log(fl);
       if(fl.type == 'one_to_one' || fl.type == 'one_to_many')
         return;
       if(fl.hidden)

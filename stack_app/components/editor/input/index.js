@@ -30,7 +30,7 @@ export class DecimalFieldEditor extends Component{
   componentDidMount(){
     this.props.onChange(numeral(this.props.value).format(this._format_str));
   }
-  valChange = (ev)=>{    
+  valChange = (ev)=>{
     this.props.onChange(numeral(ev.target.value).format(this._format_str));
   }
   formatValue(strValue){
@@ -54,7 +54,7 @@ export class IntFieldEditor extends Component{
       this.props.onChange(Math.round(Math.abs(val)));
     else
       this.props.onChange(Math.round(val));
-  }  
+  }
   render(){
     return(<TextField {...this.props} type='number' onBlur={this.valChange} />)
   }
@@ -130,7 +130,7 @@ export class LinkFieldEditor extends Component{
   }
   valChange = (val)=>{
     if(val)
-      this.props.onChange(val.value);
+      this.props.onChange({id: val.value});
     else {
       this.props.onChange(null);
     }
@@ -144,12 +144,25 @@ export class LinkFieldEditor extends Component{
     api_object.getSimpleListData(this.props.fieldSchema.link_object,{query:input}).then((dt)=>{
         that.setState(
             {isLoading:false,
-             options: _.map(dt.data, function(d){return {value:d.id, label: d.text}}),
+             options: _.map(dt.data, function(d){return {value:d.id, label: d.title}}),
              complete:dt.complete
             }
         );
     });
 
+  };
+  setInitial = ()=>{
+    if(this.props.value.title){
+      this.setState(
+          {isLoading:false,
+           options: [{value:this.props.value.id, label: this.props.value.title}],
+           complete: true
+          }
+      );
+    }
+    else{
+      this.getData('#'+this.props.value.id);
+    }
   };
   handleOnOpen=()=>{
     if(!this.isOpened)
@@ -162,7 +175,9 @@ export class LinkFieldEditor extends Component{
   };
   componentWillMount(){
     if(this.props.value){
-      this.getData('#'+this.props.value);
+      console.log(this.props.value);
+      //this.getData('#'+this.props.value.id);
+      this.setInitial();
     }
   }
   render(){
@@ -170,10 +185,11 @@ export class LinkFieldEditor extends Component{
     let styl = {marginTop: 12};
     styl.width = this.props.fullWidth ? '100%' : 256;
     styl.height = this.props.floatingLabelText ? 72 : 48;
+    let val = (this.props.value)?this.props.value.id: null;
     return(
       <div style={styl}>
         <label style={{top: 38, zIndex: 1, cursor: 'text'}}>{this.props.floatingLabelText}</label>
-        <Select {...this.props}
+        <Select {...this.props} value={val}
             isLoading={this.state.isLoading}
             options={this.state.options}
             onInputChange={this.handleInputChange}

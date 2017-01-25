@@ -20,6 +20,10 @@ export const cellFormatter = {
     return (<div>{d}</div>)
   },
   //link field
+  link:(props)=>{
+    let d = (props.value)?props.value.title: null;
+    return (<div>{d}</div>)
+  },
   ////////
   title:(props)=>{
     return (<a href={"#/object/form/"+props.objectName+"?id="+props.dependentValues.data.id}>{props.value}</a>)
